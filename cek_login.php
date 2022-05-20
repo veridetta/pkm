@@ -14,6 +14,7 @@ if ($_POST) {
 	
 	  $_SESSION['namauser']     = $r['username'];
 	  $_SESSION['passuser']     = $r['password'];
+	  $_SESSION['nama']     = $r['name'];
 	  $_SESSION['role']		= $r['role'];
 	  header('location:media.php?module=home');
 	}

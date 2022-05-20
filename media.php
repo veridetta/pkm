@@ -46,14 +46,14 @@ include "config/fungsi_indotgl.php";
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="?module=home">
         <div class="sidebar-brand-icon">
           <img src="assets/img/logo.png" height="60px" width="60px">
         </div>
-        <div class="sidebar-brand-text mx-3">APPS SPPD</div>
+        <div class="sidebar-brand-text mx-3">PKM</div>
       </a>
 
 	  <!-- Divider -->
@@ -79,93 +79,30 @@ include "config/fungsi_indotgl.php";
       </div>
 	  
 	  <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item <?php $p = $_GET['module']; if($p=='nppd' || $p=='tambahnppd' || $p=='spt' || $p=='sppd'){echo "active";} ?>">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#mastersppd" aria-expanded="true" aria-controls="mastersppd">
-          <i class="fas fa-fw fa-envelope-open-text"></i>
-          <span>Data SPPD</span>
-        </a>
-        <div id="mastersppd" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="?module=nppd">Data NPPD</a>
-            <a class="collapse-item" href="?module=spt">Data SPT</a>
-            <a class="collapse-item" href="?module=sppd">Data SPPD</a>
-          </div>
-        </div>
-      </li>
-	  
-	  <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item <?php $p = $_GET['module']; if($p=='pegawai' || $p=='golongan'){echo "active";} ?>">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#masterpegawai" aria-expanded="true" aria-controls="masterpegawai">
-          <i class="fas fa-fw fa-user-tie"></i>
-          <span>Data Pegawai</span>
-        </a>
-        <div id="masterpegawai" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="?module=pegawai">Data Pegawai</a>
-            <a class="collapse-item" href="?module=golongan">Data Golongan</a>
-          </div>
-        </div>
-      </li>
-	  
-	  <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item <?php $p = $_GET['module']; if($p=='tujuan' || $p=='biaya' || $p=='transportasi'){echo "active";} ?>">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#masterbiaya" aria-expanded="true" aria-controls="masterbiaya">
-          <i class="fas fa-fw fa-receipt"></i>
-          <span>Data Biaya</span>
-        </a>
-        <div id="masterbiaya" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="?module=tujuan">Data Kota</a>
-            <a class="collapse-item" href="?module=biaya">Data Biaya Perjalanan</a>
-			<a class="collapse-item" href="?module=transportasi">Data Transportasi</a>
-          </div>
-        </div>
-      </li>
-	  
-	  <!-- Divider -->
-      <hr class="sidebar-divider">
-	  
-	  <!-- Heading -->
-      <div class="sidebar-heading">
-        MASTER LAPORAN
-      </div>
-	  
-	  <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item <?php $p = $_GET['module']; if($p=='kwitansi' || $p=='lpd'){echo "active";} ?>">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#masterlaporan" aria-expanded="true" aria-controls="masterlaporan">
+      <li class="nav-item <?php $p = $_GET['module']; if($p=='usaha' || $p=='tambahusaha'){echo "active";} ?>">
+        <a class="nav-link" href="?module=usaha">
           <i class="fas fa-fw fa-file-alt"></i>
-          <span>Data Laporan</span>
+          <span>Data Usaha</span>
         </a>
-        <div id="masterlaporan" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="?module=kwitansi">Data Kwitansi</a>
-            <a class="collapse-item" href="?module=lpd">Data Perjalanan Dinas</a>
-          </div>
-        </div>
       </li>
-	  
-	  <!-- Divider -->
-      <hr class="sidebar-divider">
-	  
-	  <!-- Heading -->
-      <div class="sidebar-heading">
-        MASTER SETTING
-      </div>
-	  
-	  <li class="nav-item <?php $p = $_GET['module']; if($p=='instansi' || $p=='ttdkwitansi'){echo "active";} ?>">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#mastersetting" aria-expanded="true" aria-controls="mastersetting">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Data Setting</span>
+      <li class="nav-item <?php $p = $_GET['module']; if($p=='kegiatan' || $p=='tambahkegiatan'){echo "active";} ?>">
+        <a class="nav-link" href="?module=kegiatan">
+          <i class="fas fa-fw fa-running"></i>
+          <span>Kegiatan PKM</span>
         </a>
-        <div id="mastersetting" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="?module=instansi">Data Instansi</a>
-            <a class="collapse-item" href="?module=ttdkwitansi">Data Kwitansi</a>
-          </div>
-        </div>
       </li>
-	  
-	  
+      <li class="nav-item <?php $p = $_GET['module']; if($p=='nppd' || $p=='tambahnppd' || $p=='spt' || $p=='sppd'){echo "active";} ?>">
+        <a class="nav-link" href="?module=nppd">
+          <i class="fas fa-fw fa-chart-line"></i>
+          <span>Progres Hasil Kerja</span>
+        </a>
+      </li>
+      <li class="nav-item <?php $p = $_GET['module']; if($p=='nppd' || $p=='tambahnppd' || $p=='spt' || $p=='sppd'){echo "active";} ?>">
+        <a class="nav-link" href="?module=nppd">
+          <i class="fas fa-fw fa-money-bill"></i>
+          <span>Laporan Keuangan</span>
+        </a>
+      </li>
 	<?php } ?>
 	
 	<!-- Divider -->
@@ -271,11 +208,12 @@ include "config/fungsi_indotgl.php";
   <script src="assets/js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="assets/vendor/chart.js/Chart.min.js"></script>
+  <script src="assets/vendor/chart.js/package/dist/chart.min.js"></script>
 
   <!-- Page level custom scripts -->
   <script src="assets/js/demo/chart-area-demo.js"></script>
-  <script src="assets/js/demo/chart-pie-demo.js"></script>
+  <script src="assets/js/demo/chart-bar-demo.js"></script>
+  <script src="assets/js/demo/chart-bar-demo2.js"></script>
   
   <!-- Page level plugins -->
   <script src="assets/vendor/datatables/jquery.dataTables.min.js"></script>
