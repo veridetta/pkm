@@ -20,6 +20,18 @@ elseif ($mod=='kegiatan'){
 elseif ($mod=='tambahkegiatan'){
     include "modul/mod_kegiatan/tambahkegiatan.php";
 }
+elseif ($mod=='progres'){
+    include "modul/mod_progres/progres.php";
+}
+elseif ($mod=='tambahprogres'){
+    include "modul/mod_progres/tambahprogres.php";
+}
+elseif ($mod=='laporan'){
+    include "modul/mod_laporan/laporan.php";
+}
+elseif ($mod=='tambahlaporan'){
+    include "modul/mod_laporan/tambahlaporan.php";
+}
 elseif ($mod=='password'){
     include "modul/mod_password/password.php";
 }

@@ -91,14 +91,14 @@ include "config/fungsi_indotgl.php";
           <span>Kegiatan PKM</span>
         </a>
       </li>
-      <li class="nav-item <?php $p = $_GET['module']; if($p=='nppd' || $p=='tambahnppd' || $p=='spt' || $p=='sppd'){echo "active";} ?>">
-        <a class="nav-link" href="?module=nppd">
+      <li class="nav-item <?php $p = $_GET['module']; if($p=='progres' || $p=='tambahprogres'){echo "active";} ?>">
+        <a class="nav-link" href="?module=progres">
           <i class="fas fa-fw fa-chart-line"></i>
           <span>Progres Hasil Kerja</span>
         </a>
       </li>
-      <li class="nav-item <?php $p = $_GET['module']; if($p=='nppd' || $p=='tambahnppd' || $p=='spt' || $p=='sppd'){echo "active";} ?>">
-        <a class="nav-link" href="?module=nppd">
+      <li class="nav-item <?php $p = $_GET['module']; if($p=='laporan' || $p=='tambahlaporan'){echo "active";} ?>">
+        <a class="nav-link" href="?module=laporan">
           <i class="fas fa-fw fa-money-bill"></i>
           <span>Laporan Keuangan</span>
         </a>

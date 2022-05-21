@@ -3,8 +3,7 @@ $aksi="modul/mod_kegiatan/aksi_kegiatan.php";
 $aksi2="modul/mod_kegiatan/cetak.php";
 switch($_GET['act']){
 default:
-//$tampil = mysqli_query($connect,"SELECT * FROM kegiatan ORDER BY id DESC");
-$tampil = mysqli_query($connect,"SELECT k.*, u.id as idUser, u.name FROM kegiatan k inner join user u on u.id=k.id_user");
+$tampil = mysqli_query($connect,"SELECT * FROM kegiatan ");
 ?>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -30,11 +29,8 @@ $tampil = mysqli_query($connect,"SELECT k.*, u.id as idUser, u.name FROM kegiata
 					<tr align="center">
 						<th width="5%">No</th>
 						<th>Jenis Kegiatan</th>
-						<th>Nama User</th>
-						<th>Nama Keluarga</th>
-						<th>Hari</th>
+						<th>Nama</th>
 						<th>Tanggal</th>
-						<th>Waktu</th>
 						<th>Aksi</th>
 					</tr>
 				</thead>
@@ -46,11 +42,8 @@ $tampil = mysqli_query($connect,"SELECT k.*, u.id as idUser, u.name FROM kegiata
 					<tr align="center">
 						<td><?php echo $no ?></td>
 						<td><?php echo $r['jenis'] ?></td>
-						<td><?php echo $r['name'] ?></td>
 						<td><?php echo $r['nama'] ?></td>
-						<td><?php echo $r['hari'] ?></td>
 						<td><?php echo $r['tanggal'] ?></td>
-						<td><?php echo $r['waktu'] ?></td>
 						<td>
 							<div class="btn-group" role="group">
 								<a data-toggle="tooltip" data-placement="bottom" title="Detail Data" href="?module=kegiatan&act=detailKegiatan&id=<?php echo $r['id'] ?>" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
@@ -94,45 +87,17 @@ case "tambahKegiatan":
 					<label class="font-weight-bold">Jenis Kegiatan</label>
 					<input autocomplete="off" type="text" name="jenis" required class="form-control"/>
 				</div>
+				
 				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Nama User</label>
-					<select name="id_user" class="form-control">
-						<?php
-						$user=mysqli_query($connect,"SELECT * FROM user where role='user'");
-						while($u=mysqli_fetch_array($user)){
-						?>
-						<option value="<?=$u['id']?>"><?=$u['name']?></option>
-						<?php
-						}
-						?>
-					</select>
-				</div>
-				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Nama Keluarga</label>
+					<label class="font-weight-bold">Nama </label>
 					<input autocomplete="off" type="text" name="nama" required class="form-control"/>
 				</div>
-				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Hari</label>
-					<select name="hari" class="form-control">
-						<?php $hari=array("Senin","Selasa","Rabu","Kamis","Jumat","Sabtu","Minggu");
-						foreach($hari as $h){
-							if($r['hari']==$h){
-								echo "<option value='$h' selected>$h</option>";
-							}else{
-								echo "<option value='$h'>$h</option>";
-							}
-						}
-						?>
-					</select>
-				</div>
+				
 				<div class="form-group col-md-6">
 					<label class="font-weight-bold">Tanggal</label>
 					<input autocomplete="off" type="date" name="tanggal" required class="form-control"/>
 				</div>
-				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Waktu</label>
-					<input autocomplete="off" type="time" name="waktu" required class="form-control"/>
-				</div>
+				
 			</div>
 		</div>
 		<div class="card-footer text-right">
@@ -145,7 +110,7 @@ case "tambahKegiatan":
 <?php				
 break;
 case "editKegiatan":
-$edit=mysqli_query($connect,"SELECT k.*, u.id asUserId, u.name FROM kegiatan k inner join user u on u.id=k.id_user where k.id='$_GET[id]'");
+$edit=mysqli_query($connect,"SELECT * FROM kegiatan WHERE id='$_GET[id]'");
 $r=mysqli_fetch_array($edit);
 ?>
 
@@ -170,46 +135,15 @@ $r=mysqli_fetch_array($edit);
 					<label class="font-weight-bold">Jenis Kegiatan</label>
 					<input autocomplete="off" type="text" name="jenis" required value="<?=$r['jenis']?>" class="form-control"/>
 				</div>
+				
 				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Nama User</label>
-					<select name="id_user" class="form-control">
-						<option value="<?=$r['id_user']?>"><?=$r['name']?></option>
-						<?php
-						$user=mysqli_query($connect,"SELECT * FROM user where role='user'");
-						while($u=mysqli_fetch_array($user)){
-						?>
-						<option value="<?=$u['id_user']?>"><?=$u['name']?></option>
-						<?php
-						}
-						?>
-					</select>
+					<label class="font-weight-bold">Nama</label>
+					<input autocomplete="off" type="text" name="nama" required value="<?=$r['nama']?>" class="form-control"/>
 				</div>
 				
 				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Nama Keluarga</label>
-					<input autocomplete="off" type="text" name="nama" required value="<?=$r['nama']?>" class="form-control"/>
-				</div>
-				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Hari</label>
-					<select name="hari" class="form-control">
-						<?php $hari=array("Senin","Selasa","Rabu","Kamis","Jumat","Sabtu","Minggu");
-						foreach($hari as $h){
-							if($r['hari']==$h){
-								echo "<option value='$h' selected>$h</option>";
-							}else{
-								echo "<option value='$h'>$h</option>";
-							}
-						}
-						?>
-					</select>
-				</div>
-				<div class="form-group col-md-6">
 					<label class="font-weight-bold">Tanggal</label>
 					<input autocomplete="off" type="date" name="tanggal" required value="<?=$r['tanggal']?>" class="form-control"/>
-				</div>
-				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Waktu</label>
-					<input autocomplete="off" type="time" name="waktu" required value="<?=$r['waktu']?>" class="form-control"/>
 				</div>
 			</div>
 		</div>
@@ -223,8 +157,7 @@ $r=mysqli_fetch_array($edit);
 <?php   
 break;  
 case "detailKegiatan":
-	
-$detail=mysqli_query($connect,"SELECT k.*, u.id, u.name FROM kegiatan k inner join user u on u.id=k.id_user where k.id='$_GET[id]'");
+$detail=mysqli_query($connect,"SELECT * FROM kegiatan WHERE id='$_GET[id]'");
 $r=mysqli_fetch_array($detail);
 ?>
 
@@ -249,25 +182,12 @@ $r=mysqli_fetch_array($detail);
 					<td><?=$r['jenis']?></td>
 				</tr>
 				<tr>
-					<th class="bg-light">Nama User</th>
-					<td><?=$r['name']?></td>
-				</tr>
-				
-				<tr>
-					<th class="bg-light">Nama Keluarga</th>
+					<th class="bg-light">Nama</th>
 					<td><?=$r['nama']?></td>
-				</tr>
-				<tr>
-					<th class="bg-light">Hari</th>
-					<td><?=$r['hari']?></td>
 				</tr>
 				<tr>
 					<th class="bg-light">Tanggal</th>
 					<td><?=$r['tanggal']?></td>
-				</tr>
-				<tr>
-					<th class="bg-light">Waktu</th>
-					<td><?=$r['waktu']?></td>
 				</tr>
 			</table>
 		</div>

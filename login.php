@@ -7,7 +7,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
 
-        <title>Simanas</title>
+        <title>PKM</title>
 
         <!-- Custom fonts for this template-->
         <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -17,19 +17,19 @@
         <link href="assets/css/sb-admin-2.min.css" rel="stylesheet" />
     </head>
 
-    <body class="bg-gradient-success">
-        <div class="container py-5">
+    <body class="bg-gradient-info">
+        <div class="container py-3">
             <!-- Outer Row -->
             <div class="row justify-content-center">
-                <div class="col-xl-5 col-lg-5 col-md-9">
+                <div class="col-xl-6 col-lg-6 col-md-9">
                 <center>
-                    <img src="assets/img/jateng.png" height="60px" width="60px">
+                    <img src="assets/img/logo.png" height="120px" width="120px">
                 </center>
-                    <h3 class="text-white text-center font-weight-bold">Sistem Informasi Perjalanan Dinas</h3>
-                    <div class="card o-hidden border-0 shadow-lg my-5">
+                    <h3 class="text-white text-center font-weight-bold">PKM - Keluarga Prasejahtera</h3>
+                    <div class="card o-hidden border-0 shadow-lg my-3">
                         <div class="card-header">
                              <div class="text-center">
-                                            <h1 class="h4 text-gray-900 ">Login Simanas</h1>
+                                            <h1 class="h4 text-gray-900 ">Login PKM</h1>
                                         </div>
                         </div>
                         <form class="user" action="cek_login.php" method="post">
@@ -42,7 +42,6 @@
                                             <h5 >Silahkan login terlebih dahulu.</h5>
                                         </div>
                                     <div class="p-4">
-                                        
 										<?php 
 										$log= isset($_GET['log']) ? $_GET['log'] : "";
 										if ($log == 2) {
@@ -53,30 +52,21 @@
 										 ?>
                                         
                                             <div class="form-group">
+                                                <label for="username">Nama Pengguna</label>
                                                 <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="off" required />
                                             </div>
                                             <div class="form-group">
+                                            <label for="username">Kata Sandi</label>
                                                 <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off" required />
                                             </div>
-											<div class="form-group">
-												<select name="tipe" id="tipe" class="custom-select" required>
-													<option value="">--Pilih User--</option>
-													<option value="operator">Operator</option>
-													<option value="kabag">Kabag</option>
-													<option value="user">Pegawai</option>
-												</select>
-											</div>
-                                            
-                                       
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer">   <button type="submit" class="btn btn-success btn-block" ><i class="fas fa-fw fa-sign-in-alt mr-1"></i> Masuk</button><br>
-                        
+                        <div class="card-footer">   <button type="submit" class="btn btn-info btn-block" ><i class="fas fa-fw fa-sign-in-alt mr-1"></i> Masuk</button><br>
+                
                         </div>
                              </form>
-                        <center><a href="index.php"><button class="btn btn-secondary " ><i class="fas fa-fw fa-arrow-left mr-1"></i>Kembali </button></a></center>
                     </div>
                 </div>
             </div>

@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer">   <button type="submit" class="btn btn-success btn-block" ><i class="fas fa-fw fa-sign-in-alt mr-1"></i> Masuk</button><br>
+                        <div class="card-footer">   <button type="submit" class="btn btn-info btn-block" ><i class="fas fa-fw fa-sign-in-alt mr-1"></i> Masuk</button><br>
                 
                         </div>
                              </form>

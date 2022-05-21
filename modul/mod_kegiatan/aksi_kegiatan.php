@@ -6,9 +6,12 @@ $module=$_GET['module'];
 $act=$_GET['act'];
 
 if ($module=='kegiatan' AND $act=='update'){
-    mysqli_query($connect,"UPDATE kegiatan SET jenis  = '$_POST[jenis]',
+    mysqli_query($connect,"UPDATE kegiatan SET id_user  = '$_POST[id_user]',
+								 jenis = '$_POST[jenis]',
 								 nama = '$_POST[nama]',
-								 tanggal = '$_POST[tanggal]'
+								 hari = '$_POST[hari]',
+								 tanggal = '$_POST[tanggal]',
+								 waktu = '$_POST[waktu]'
 								 WHERE id = '$_POST[id]'");
 								 
 	
@@ -19,9 +22,19 @@ elseif ($module=='kegiatan' AND $act=='hapus') {
   header('location:../../media.php?module='.$module);
 }
 elseif ($module=='kegiatan' AND $act=='input'){
-	  mysqli_query($connect,"INSERT INTO kegiatan(jenis,nama,tanggal) 
-	  VALUES('$_POST[jenis]','$_POST[nama]','$_POST[tanggal]')");
-  header('location:../../media.php?module='.$module);
+	$id_user = $_POST['id_user'];
+    $jenis = $_POST['jenis'];
+    $nama = $_POST['nama'];
+    $hari = $_POST['hari'];
+    $tanggal = $_POST['tanggal'];
+    $waktu = $_POST['waktu'];
+    //insert nppt
+    $sql = mysqli_query($connect,"insert into kegiatan (id_user, jenis, nama, hari, tanggal, waktu) values ('$id_user','$jenis','$nama','$hari','$tanggal','$waktu')");
+    if ($sql) {
+        header('location:../../media.php?module='.$module);
+    }else{
+        echo "gagal". mysqli_error($connect);
+    }
 }
 
 ?>
