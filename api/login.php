@@ -26,7 +26,7 @@ if(isset($_POST['apps'])){
         //json set
         $json['status'] = "sukses";
         $json['pesan'] = "Login Sukses";
-        $dataResult = array(
+        $dataResult[] = array(
             'id' => $data['id'],
             'username' => $data['username'],
             'email' => $data['email'],
