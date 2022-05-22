@@ -7,7 +7,7 @@ $tampil = mysqli_query($connect,"SELECT k.*, u.id as idUser, u.name FROM progres
 ?>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-running"></i> Data Progres Hasil Kerja</h1>
+    <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-chart-line"></i> Data Progres Hasil Kerja</h1>
 
    </div>
 
@@ -75,7 +75,7 @@ $rupiah=number_format($r['pendapatan'],0,',','.');
 ?>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-running"></i> Data Progres Hasil Kerja</h1>
+    <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-chart-line"></i> Data Progres Hasil Kerja</h1>
 
 	<a href="?module=progres" class="btn btn-secondary btn-icon-split"><span class="icon text-white-50"><i class="fas fa-arrow-left"></i></span>
 		
