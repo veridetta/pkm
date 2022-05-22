@@ -1,22 +1,21 @@
 <?php
-$aksi="modul/mod_kegiatan/aksi_kegiatan.php";
-$aksi2="modul/mod_kegiatan/cetak.php";
+$aksi="modul/mod_progres/aksi_progres.php";
+$aksi2="modul/mod_progres/cetak.php";
 switch($_GET['act']){
 default:
-$tampil = mysqli_query($connect,"SELECT * FROM kegiatan ");
+$tampil = mysqli_query($connect,"SELECT k.*, u.id as idUser, u.name FROM laporan k inner join user u on u.id=k.id_user");
 ?>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-running"></i> Data Kegiatan PKM</h1>
+    <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-running"></i> Data Progres Hasil Kerja</h1>
 
    </div>
 
 <div class="card shadow mb-4">
     <!-- /.card-header -->
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-info"><i class="fa fa-table"></i> Daftar Data Kegiatan PKM</h6>
+        <h6 class="m-0 font-weight-bold text-info"><i class="fa fa-table"></i> Daftar Data Progres Hasil Kerja</h6>
          <div><br>
-	<a href="?module=kegiatan&act=tambahKegiatan" class="btn btn-info"> <i class="fa fa-plus"></i>  </a>
 	<a href="<?=$aksi2?>" target="_blank" class="btn btn-secondary"> <i class="fa fa-print"></i>  </a>
 	</div>
 
@@ -28,27 +27,32 @@ $tampil = mysqli_query($connect,"SELECT * FROM kegiatan ");
 				<thead class="bg-info text-white">
 					<tr align="center">
 						<th width="5%">No</th>
-						<th>Jenis Kegiatan</th>
 						<th>Nama</th>
-						<th>Tanggal</th>
-						<th>Aksi</th>
+						<th>Jenis Usaha</th>
+						<th>Alamat</th>
+						<th>No HP</th>
+						<th>Pendapatan</th>
+						<th>Laporan Progres</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php
 					$no=1;
 					while ($r=mysqli_fetch_array($tampil)){
+						$rupiah=number_format($r['pendapatan'],0,',','.');
 					?>
 					<tr align="center">
 						<td><?php echo $no ?></td>
-						<td><?php echo $r['jenis'] ?></td>
-						<td><?php echo $r['nama'] ?></td>
-						<td><?php echo $r['tanggal'] ?></td>
+						<td><?php echo $r['name'] ?></td>
+						<td><?php echo $r['jenis_usaha'] ?></td>
+						<td><?php echo $r['alamat'] ?></td>
+						<td><?php echo $r['no_hp'] ?></td>
+						<td><?php echo "Rp. ".$rupiah ?></td>
+						<td><?php echo $r['laporan'] ?></td>
 						<td>
 							<div class="btn-group" role="group">
-								<a data-toggle="tooltip" data-placement="bottom" title="Detail Data" href="?module=kegiatan&act=detailKegiatan&id=<?php echo $r['id'] ?>" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
-								<a data-toggle="tooltip" data-placement="bottom" title="Edit Data" href="?module=kegiatan&act=editKegiatan&id=<?php echo $r['id'] ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-								<a data-toggle="tooltip" data-placement="bottom" title="Hapus Data" href="<?=$aksi?>?module=kegiatan&act=hapus&id=<?php echo $r['id'] ?>" onclick="return confirm ('Apakah anda yakin untuk meghapus data ini')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+								<a data-toggle="tooltip" data-placement="bottom" title="Detail Data" href="?module=progres&act=detailKegiatan&id=<?php echo $r['id'] ?>" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
 							</div>
 						</td>
 					</tr>
@@ -62,132 +66,53 @@ $tampil = mysqli_query($connect,"SELECT * FROM kegiatan ");
 	</div>
 </div>
 
-<?php
+<?php			
 break;
-case "tambahKegiatan":
-?>
-
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-running"></i> Data Kegiatan PKM</h1>
-
-	<a href="?module=kegiatan" class="btn btn-secondary btn-icon-split"><span class="icon text-white-50"><i class="fas fa-arrow-left"></i></span>
-		
-	</a>
-</div>
-
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-info"><i class="fas fa-fw fa-plus"></i> Tambah Data Kegiatan PKM</h6>
-    </div>
-	
-	<form method="POST" action='<?=$aksi?>?module=kegiatan&act=input'>
-		<div class="card-body">
-			<div class="row">
-				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Jenis Kegiatan</label>
-					<input autocomplete="off" type="text" name="jenis" required class="form-control"/>
-				</div>
-				
-				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Nama </label>
-					<input autocomplete="off" type="text" name="nama" required class="form-control"/>
-				</div>
-				
-				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Tanggal</label>
-					<input autocomplete="off" type="date" name="tanggal" required class="form-control"/>
-				</div>
-				
-			</div>
-		</div>
-		<div class="card-footer text-right">
-            <button name="submit" type="submit" class="btn btn-success"><i class="fa fa-save"></i> </button>
-            <button type="reset" class="btn btn-info"><i class="fa fa-sync-alt"></i> </button>
-        </div>
-	</form>
-</div>
-				
-<?php				
-break;
-case "editKegiatan":
-$edit=mysqli_query($connect,"SELECT * FROM kegiatan WHERE id='$_GET[id]'");
-$r=mysqli_fetch_array($edit);
-?>
-
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-running"></i> Data Kegiatan PKM</h1>
-
-	<a href="?module=kegiatan" class="btn btn-secondary btn-icon-split"><span class="icon text-white-50"><i class="fas fa-arrow-left"></i></span>
-		
-	</a>
-</div>
-
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-info"><i class="fas fa-fw fa-edit"></i> Edit Data Kegiatan PKM</h6>
-    </div>
-	
-	<form method="POST" action='<?=$aksi?>?module=kegiatan&act=update'>
-		<div class="card-body">
-			<div class="row">
-				<input type="hidden" name="id" value="<?=$r['id']?>">
-				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Jenis Kegiatan</label>
-					<input autocomplete="off" type="text" name="jenis" required value="<?=$r['jenis']?>" class="form-control"/>
-				</div>
-				
-				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Nama</label>
-					<input autocomplete="off" type="text" name="nama" required value="<?=$r['nama']?>" class="form-control"/>
-				</div>
-				
-				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Tanggal</label>
-					<input autocomplete="off" type="date" name="tanggal" required value="<?=$r['tanggal']?>" class="form-control"/>
-				</div>
-			</div>
-		</div>
-		<div class="card-footer text-right">
-            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> </button>
-            <button type="reset" class="btn btn-info"><i class="fa fa-sync-alt"></i> </button>
-        </div>
-	</form>
-</div>
-
-<?php   
-break;  
 case "detailKegiatan":
-$detail=mysqli_query($connect,"SELECT * FROM kegiatan WHERE id='$_GET[id]'");
+$detail=mysqli_query($connect,"SELECT * FROM progres WHERE id='$_GET[id]'");
 $r=mysqli_fetch_array($detail);
+$rupiah=number_format($r['pendapatan'],0,',','.');
 ?>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-running"></i> Data Kegiatan PKM</h1>
+    <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-running"></i> Data Progres Hasil Kerja</h1>
 
-	<a href="?module=kegiatan" class="btn btn-secondary btn-icon-split"><span class="icon text-white-50"><i class="fas fa-arrow-left"></i></span>
+	<a href="?module=progres" class="btn btn-secondary btn-icon-split"><span class="icon text-white-50"><i class="fas fa-arrow-left"></i></span>
 		
 	</a>
 </div>
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-info"><i class="fas fa-fw fa-eye"></i> Detail Data Kegiatan PKM</h6>
+        <h6 class="m-0 font-weight-bold text-info"><i class="fas fa-fw fa-eye"></i> Detail Data Progres Hasil Kerja</h6>
     </div>
 	
 	<div class="card-body">
 		<div class="table-responsive">
 			<table class="table table-bordered" width="100%" cellspacing="0">
 				<tr>
-					<th class="bg-light">Jenis Kegiatan</th>
-					<td><?=$r['jenis']?></td>
-				</tr>
-				<tr>
 					<th class="bg-light">Nama</th>
-					<td><?=$r['nama']?></td>
+					<td><?=$r['name']?></td>
 				</tr>
 				<tr>
-					<th class="bg-light">Tanggal</th>
-					<td><?=$r['tanggal']?></td>
+					<th class="bg-light">Jenis Usaha</th>
+					<td><?=$r['jenis_usaha']?></td>
+				</tr>
+				<tr>
+					<th class="bg-light">Alamat</th>
+					<td><?=$r['alamat']?></td>
+				</tr>
+				<tr>
+					<th class="bg-light">No HP</th>
+					<td><?=$r['no_hp']?></td>
+				</tr>
+				<tr>
+					<th class="bg-light">Pendapatan</th>
+					<td>Rp. <?=$rupiah?></td>
+				</tr>
+				<tr>
+					<th class="bg-light">Laporan Progres</th>
+					<td><?=$r['laporan']?></td>
 				</tr>
 			</table>
 		</div>

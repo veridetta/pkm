@@ -3,7 +3,7 @@ $aksi="modul/mod_progres/aksi_progres.php";
 $aksi2="modul/mod_progres/cetak.php";
 switch($_GET['act']){
 default:
-$tampil = mysqli_query($connect,"SELECT * FROM progres ");
+$tampil = mysqli_query($connect,"SELECT k.*, u.id as idUser, u.name FROM progres k inner join user u on u.id=k.id_user");
 ?>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -16,7 +16,6 @@ $tampil = mysqli_query($connect,"SELECT * FROM progres ");
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-info"><i class="fa fa-table"></i> Daftar Data Progres Hasil Kerja</h6>
          <div><br>
-	<a href="?module=progres&act=tambahKegiatan" class="btn btn-info"> <i class="fa fa-plus"></i>  </a>
 	<a href="<?=$aksi2?>" target="_blank" class="btn btn-secondary"> <i class="fa fa-print"></i>  </a>
 	</div>
 
@@ -34,26 +33,26 @@ $tampil = mysqli_query($connect,"SELECT * FROM progres ");
 						<th>No HP</th>
 						<th>Pendapatan</th>
 						<th>Laporan Progres</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php
 					$no=1;
 					while ($r=mysqli_fetch_array($tampil)){
+						$rupiah=number_format($r['pendapatan'],0,',','.');
 					?>
 					<tr align="center">
 						<td><?php echo $no ?></td>
-						<td><?php echo $r['nama'] ?></td>
+						<td><?php echo $r['name'] ?></td>
 						<td><?php echo $r['jenis_usaha'] ?></td>
 						<td><?php echo $r['alamat'] ?></td>
 						<td><?php echo $r['no_hp'] ?></td>
-						<td><?php echo "Rp. ".format_rupiah($r['pendapatan']) ?></td>
+						<td><?php echo "Rp. ".$rupiah ?></td>
 						<td><?php echo $r['laporan'] ?></td>
 						<td>
 							<div class="btn-group" role="group">
 								<a data-toggle="tooltip" data-placement="bottom" title="Detail Data" href="?module=progres&act=detailKegiatan&id=<?php echo $r['id'] ?>" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
-								<a data-toggle="tooltip" data-placement="bottom" title="Edit Data" href="?module=progres&act=editKegiatan&id=<?php echo $r['id'] ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-								<a data-toggle="tooltip" data-placement="bottom" title="Hapus Data" href="<?=$aksi?>?module=progres&act=hapus&id=<?php echo $r['id'] ?>" onclick="return confirm ('Apakah anda yakin untuk meghapus data ini')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
 							</div>
 						</td>
 					</tr>
@@ -72,6 +71,7 @@ break;
 case "detailKegiatan":
 $detail=mysqli_query($connect,"SELECT * FROM progres WHERE id='$_GET[id]'");
 $r=mysqli_fetch_array($detail);
+$rupiah=number_format($r['pendapatan'],0,',','.');
 ?>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -92,7 +92,7 @@ $r=mysqli_fetch_array($detail);
 			<table class="table table-bordered" width="100%" cellspacing="0">
 				<tr>
 					<th class="bg-light">Nama</th>
-					<td><?=$r['nama']?></td>
+					<td><?=$r['name']?></td>
 				</tr>
 				<tr>
 					<th class="bg-light">Jenis Usaha</th>
@@ -108,11 +108,11 @@ $r=mysqli_fetch_array($detail);
 				</tr>
 				<tr>
 					<th class="bg-light">Pendapatan</th>
-					<td><?=$r['pendapatan']?></td>
+					<td>Rp. <?=$rupiah?></td>
 				</tr>
 				<tr>
 					<th class="bg-light">Laporan Progres</th>
-					<td>Rp. <?=format_rupiah($r['laporan'])?></td>
+					<td><?=$r['laporan']?></td>
 				</tr>
 			</table>
 		</div>

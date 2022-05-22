@@ -8,7 +8,6 @@ $act=$_GET['act'];
 if ($module=='kegiatan' AND $act=='update'){
     mysqli_query($connect,"UPDATE kegiatan SET id_user  = '$_POST[id_user]',
 								 jenis = '$_POST[jenis]',
-								 nama = '$_POST[nama]',
 								 hari = '$_POST[hari]',
 								 tanggal = '$_POST[tanggal]',
 								 waktu = '$_POST[waktu]'
@@ -24,12 +23,11 @@ elseif ($module=='kegiatan' AND $act=='hapus') {
 elseif ($module=='kegiatan' AND $act=='input'){
 	$id_user = $_POST['id_user'];
     $jenis = $_POST['jenis'];
-    $nama = $_POST['nama'];
     $hari = $_POST['hari'];
     $tanggal = $_POST['tanggal'];
     $waktu = $_POST['waktu'];
     //insert nppt
-    $sql = mysqli_query($connect,"insert into kegiatan (id_user, jenis, nama, hari, tanggal, waktu) values ('$id_user','$jenis','$nama','$hari','$tanggal','$waktu')");
+    $sql = mysqli_query($connect,"insert into kegiatan (id_user, jenis, hari, tanggal, waktu) values ('$id_user','$jenis','$hari','$tanggal','$waktu')");
     if ($sql) {
         header('location:../../media.php?module='.$module);
     }else{

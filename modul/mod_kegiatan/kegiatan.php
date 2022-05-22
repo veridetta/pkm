@@ -30,7 +30,6 @@ $tampil = mysqli_query($connect,"SELECT k.*, u.id as idUser, u.name FROM kegiata
 					<tr align="center">
 						<th width="5%">No</th>
 						<th>Jenis Kegiatan</th>
-						<th>Nama User</th>
 						<th>Nama Keluarga</th>
 						<th>Hari</th>
 						<th>Tanggal</th>
@@ -47,7 +46,6 @@ $tampil = mysqli_query($connect,"SELECT k.*, u.id as idUser, u.name FROM kegiata
 						<td><?php echo $no ?></td>
 						<td><?php echo $r['jenis'] ?></td>
 						<td><?php echo $r['name'] ?></td>
-						<td><?php echo $r['nama'] ?></td>
 						<td><?php echo $r['hari'] ?></td>
 						<td><?php echo $r['tanggal'] ?></td>
 						<td><?php echo $r['waktu'] ?></td>
@@ -95,7 +93,7 @@ case "tambahKegiatan":
 					<input autocomplete="off" type="text" name="jenis" required class="form-control"/>
 				</div>
 				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Nama User</label>
+					<label class="font-weight-bold">Nama Keluarga</label>
 					<select name="id_user" class="form-control">
 						<?php
 						$user=mysqli_query($connect,"SELECT * FROM user where role='user'");
@@ -106,10 +104,6 @@ case "tambahKegiatan":
 						}
 						?>
 					</select>
-				</div>
-				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Nama Keluarga</label>
-					<input autocomplete="off" type="text" name="nama" required class="form-control"/>
 				</div>
 				<div class="form-group col-md-6">
 					<label class="font-weight-bold">Hari</label>
@@ -171,7 +165,7 @@ $r=mysqli_fetch_array($edit);
 					<input autocomplete="off" type="text" name="jenis" required value="<?=$r['jenis']?>" class="form-control"/>
 				</div>
 				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Nama User</label>
+					<label class="font-weight-bold">Nama Keluarga</label>
 					<select name="id_user" class="form-control">
 						<option value="<?=$r['id_user']?>"><?=$r['name']?></option>
 						<?php
@@ -183,11 +177,6 @@ $r=mysqli_fetch_array($edit);
 						}
 						?>
 					</select>
-				</div>
-				
-				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Nama Keluarga</label>
-					<input autocomplete="off" type="text" name="nama" required value="<?=$r['nama']?>" class="form-control"/>
 				</div>
 				<div class="form-group col-md-6">
 					<label class="font-weight-bold">Hari</label>
@@ -249,13 +238,8 @@ $r=mysqli_fetch_array($detail);
 					<td><?=$r['jenis']?></td>
 				</tr>
 				<tr>
-					<th class="bg-light">Nama User</th>
-					<td><?=$r['name']?></td>
-				</tr>
-				
-				<tr>
 					<th class="bg-light">Nama Keluarga</th>
-					<td><?=$r['nama']?></td>
+					<td><?=$r['name']?></td>
 				</tr>
 				<tr>
 					<th class="bg-light">Hari</th>

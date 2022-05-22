@@ -3,7 +3,7 @@ $aksi="modul/mod_usaha/aksi_usaha.php";
 $aksi2="modul/mod_usaha/cetak.php";
 switch($_GET['act']){
 default:
-$tampil = mysqli_query($connect,"SELECT * FROM usaha ");
+$tampil = mysqli_query($connect,"SELECT k.*, u.id as idUser, u.name FROM usaha k inner join user u on u.id=k.id_user");
 ?>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -28,8 +28,9 @@ $tampil = mysqli_query($connect,"SELECT * FROM usaha ");
 				<thead class="bg-info text-white">
 					<tr align="center">
 						<th width="5%">No</th>
-						<th>Minat Usaha</th>
 						<th>Nama Keluarga</th>
+						<th>Minat Usaha</th>
+						<th>Tanggal</th>
 						<th>No HP</th>
 						<th>Aksi</th>
 					</tr>
@@ -41,8 +42,9 @@ $tampil = mysqli_query($connect,"SELECT * FROM usaha ");
 					?>
 					<tr align="center">
 						<td><?php echo $no ?></td>
+						<td><?php echo $r['name'] ?></td>
 						<td><?php echo $r['minat'] ?></td>
-						<td><?php echo $r['nama_keluarga'] ?></td>
+						<td><?php echo $r['tanggal'] ?></td>
 						<td><?php echo $r['no_hp'] ?></td>
 						<td>
 							<div class="btn-group" role="group">
@@ -84,13 +86,25 @@ case "tambahUsaha":
 		<div class="card-body">
 			<div class="row">
 				<div class="form-group col-md-6">
+					<label class="font-weight-bold">Nama Keluarga</label>
+					<select name="id_user" class="form-control">
+						<?php
+						$user=mysqli_query($connect,"SELECT * FROM user where role='user'");
+						while($u=mysqli_fetch_array($user)){
+						?>
+						<option value="<?=$u['id']?>"><?=$u['name']?></option>
+						<?php
+						}
+						?>
+					</select>
+				</div>
+				<div class="form-group col-md-6">
 					<label class="font-weight-bold">Minat Usaha</label>
 					<input autocomplete="off" type="text" name="minat" required class="form-control"/>
 				</div>
-				
 				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Nama Keluarga</label>
-					<input autocomplete="off" type="text" name="nama_keluarga" required class="form-control"/>
+					<label class="font-weight-bold">Tanggal</label>
+					<input autocomplete="off" type="date" name="tanggal" required class="form-control"/>
 				</div>
 				
 				<div class="form-group col-md-6">
@@ -110,7 +124,7 @@ case "tambahUsaha":
 <?php				
 break;
 case "editUsaha":
-$edit=mysqli_query($connect,"SELECT * FROM usaha WHERE id='$_GET[id]'");
+	$edit=mysqli_query($connect,"SELECT du.*, u.id asUserId, u.name FROM usaha du inner join user u on u.id=du.id_user where du.id='$_GET[id]'");
 $r=mysqli_fetch_array($edit);
 ?>
 
@@ -132,13 +146,27 @@ $r=mysqli_fetch_array($edit);
 			<div class="row">
 				<input type="hidden" name="id" value="<?=$r['id']?>">
 				<div class="form-group col-md-6">
+					<label class="font-weight-bold">Nama Keluarga</label>
+					<select name="id_user" class="form-control">
+						<option value="<?=$r['id_user']?>"><?=$r['name']?></option>
+						<?php
+						$user=mysqli_query($connect,"SELECT * FROM user where role='user'");
+						while($u=mysqli_fetch_array($user)){
+						?>
+						<option value="<?=$u['id_user']?>"><?=$u['name']?></option>
+						<?php
+						}
+						?>
+					</select>
+				</div>
+				<div class="form-group col-md-6">
 					<label class="font-weight-bold">Minat Usaha</label>
 					<input autocomplete="off" type="text" name="minat" required value="<?=$r['minat']?>" class="form-control"/>
 				</div>
 				
 				<div class="form-group col-md-6">
-					<label class="font-weight-bold">Nama Keluarga</label>
-					<input autocomplete="off" type="text" name="nama_keluarga" required value="<?=$r['nama_keluarga']?>" class="form-control"/>
+					<label class="font-weight-bold">Tanggal</label>
+					<input autocomplete="off" type="date" name="tanggal" required value="<?=$r['nama_keluarga']?>" class="form-control"/>
 				</div>
 				
 				<div class="form-group col-md-6">
@@ -157,7 +185,7 @@ $r=mysqli_fetch_array($edit);
 <?php   
 break;  
 case "detailUsaha":
-$detail=mysqli_query($connect,"SELECT * FROM usaha WHERE id='$_GET[id]'");
+	$detail=mysqli_query($connect,"SELECT k.*, u.id, u.name FROM usaha k inner join user u on u.id=k.id_user where k.id='$_GET[id]'");
 $r=mysqli_fetch_array($detail);
 ?>
 
@@ -178,12 +206,16 @@ $r=mysqli_fetch_array($detail);
 		<div class="table-responsive">
 			<table class="table table-bordered" width="100%" cellspacing="0">
 				<tr>
+					<th class="bg-light">Nama Keluarga</th>
+					<td><?=$r['name']?></td>
+				</tr>
+				<tr>
 					<th class="bg-light">Minat Usaha</th>
 					<td><?=$r['minat']?></td>
 				</tr>
 				<tr>
-					<th class="bg-light">Nama Keluarga</th>
-					<td><?=$r['nama_keluarga']?></td>
+					<th class="bg-light">Tanggal</th>
+					<td><?=$r['tanggal']?></td>
 				</tr>
 				<tr>
 					<th class="bg-light">No HP</th>

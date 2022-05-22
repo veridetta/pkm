@@ -16,7 +16,7 @@ if(isset($_POST['apps'])){
     $username = $_POST['username'];
     $password = $_POST['password'];
     //cek data di database
-    $sql = "SELECT * FROM pegawai WHERE username='$username' AND password='$password'";
+    $sql = "SELECT * FROM user WHERE username='$username' AND password='$password'";
     $query = mysqli_query($connect, $sql);
     $row = mysqli_num_rows($query);
     //jika data cocok

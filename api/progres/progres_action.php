@@ -13,12 +13,13 @@ $json = array(
 );
 if($_POST['apps']=='buat'){
     $id_user = $_POST['id_user'];
-    $jenis = $_POST['jenis'];
-    $hari = $_POST['hari'];
-    $tanggal = $_POST['tanggal'];
-    $waktu = $_POST['waktu'];
+    $jenis_usaha = $_POST['jenis_usaha'];
+    $alamat = $_POST['alamat'];
+    $no_hp = $_POST['no_hp'];
+    $pendapatan = $_POST['pendapatan'];
+    $laporan = $_POST['laporan'];
     //insert nppt
-    $sql = mysqli_query($connect,"insert into kegiatan (id_user, jenis, hari, tanggal, waktu) values ('$id_user','$jenis','$hari','$tanggal','$waktu')");
+    $sql = mysqli_query($connect,"insert into progres (id_user, jenis_usaha, alamat, no_hp, pendapatan, laporan) values ('$id_user','$jenis_usaha','$alamat','$no_hp','$pendapatan','$laporan')");
     if($sql){
         $json['status'] = "sukses";
         $json['pesan'] = "Data berhasil ditambah";
@@ -30,11 +31,13 @@ if($_POST['apps']=='buat'){
     }
 }else if($_POST['apps']=='ubah'){
     //insert nppt
-    $sql = mysqli_query($connect,"UPDATE kegiatan SET id_user  = '$_POST[id_user]',
-    jenis = '$_POST[jenis]',
-    hari = '$_POST[hari]',
-    tanggal = '$_POST[tanggal]',
-    waktu = '$_POST[waktu]'
+    $sql = mysqli_query($connect,"UPDATE progres SET 
+    id_user  = '$_POST[id_user]',
+    jenis_usaha = '$_POST[jenis_usaha]',
+    alamat = '$_POST[alamat]',
+    no_hp = '$_POST[no_hp]',
+    pendapatan = '$_POST[pendapatan]',
+    laporan = '$_POST[laporan]'
     WHERE id = '$_POST[id]'");
     if($sql){
         $json['status'] = "sukses";
@@ -47,7 +50,7 @@ if($_POST['apps']=='buat'){
     }
 }else if($_POST['apps']=="hapus"){
     //insert nppt
-    $sql = mysqli_query($connect,"DELETE FROM kegiatan WHERE id='$_POST[id]'");
+    $sql = mysqli_query($connect,"DELETE FROM progres WHERE id='$_POST[id]'");
     if($sql){
         $json['status'] = "sukses";
         $json['pesan'] = "Data berhasil dihapus";
@@ -59,7 +62,7 @@ if($_POST['apps']=='buat'){
     }
 }else if($_POST['apps']=="get"){
     //insert nppt
-    $sql = mysqli_query($connect,"SELECT k.*, u.name, u.id as UserID FROM kegiatan k inner join user u ON u.id = k.id_user where k.id_user='$_POST[id_user]' and MONTH(k.tanggal)='$_POST[bulan]'");
+    $sql = mysqli_query($connect,"SELECT k.*, u.name, u.id as UserID FROM progres k inner join user u ON u.id = k.id_user where k.id_user='$_POST[id_user]'");
     $dataResult=array();
     while($lpd=mysqli_fetch_array($sql)){
         //tampung data sebelum di masukkan ke json
