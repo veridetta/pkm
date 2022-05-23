@@ -68,19 +68,19 @@ if($_POST['apps']=='buat'){
     //switch $_POST['groupBy']
     switch ($_POST['groupBy']) {
         case 'year':
-            $sql = mysqli_query($connect,"SELECT k.*, sum(k.pemasukan) as totalPemasukan, sum(k.pengeluaran) as totalPengeluaran, sum(k.pemasukan)-sum(k.pengeluaran) as totalSaldo, u.id as idUser, u.name FROM laporan k inner join user u on u.id=k.id_user group by year(k.tanggal)");
+            $sql = mysqli_query($connect,"SELECT k.*, year(k.tanggal) as nilai, 'Tahun' as tipe, sum(k.pemasukan) as totalPemasukan, sum(k.pengeluaran) as totalPengeluaran, sum(k.pemasukan)-sum(k.pengeluaran) as totalSaldo, u.id as idUser, u.name FROM laporan k inner join user u on u.id=k.id_user group by year(k.tanggal), kategori");
             break;
         case 'month':
-            $sql = mysqli_query($connect,"SELECT k.*, sum(k.pemasukan) as totalPemasukan, sum(k.pengeluaran) as totalPengeluaran, sum(k.pemasukan)-sum(k.pengeluaran) as totalSaldo, u.id as idUser, u.name FROM laporan k inner join user u on u.id=k.id_user group by month(k.tanggal)");
+            $sql = mysqli_query($connect,"SELECT k.*,month(k.tanggal) as nilai,'Bulan' as tipe, sum(k.pemasukan) as totalPemasukan, sum(k.pengeluaran) as totalPengeluaran, sum(k.pemasukan)-sum(k.pengeluaran) as totalSaldo, u.id as idUser, u.name FROM laporan k inner join user u on u.id=k.id_user group by month(k.tanggal), kategori");
             break;
         case 'week':
-            $sql = mysqli_query($connect,"SELECT k.*, sum(k.pemasukan) as totalPemasukan, sum(k.pengeluaran) as totalPengeluaran, sum(k.pemasukan)-sum(k.pengeluaran) as totalSaldo, u.id as idUser, u.name FROM laporan k inner join user u on u.id=k.id_user group by week(k.tanggal)");
+            $sql = mysqli_query($connect,"SELECT k.*,week(k.tanggal) as nilai, 'Minggu' as tipe,sum(k.pemasukan) as totalPemasukan, sum(k.pengeluaran) as totalPengeluaran, sum(k.pemasukan)-sum(k.pengeluaran) as totalSaldo, u.id as idUser, u.name FROM laporan k inner join user u on u.id=k.id_user group by week(k.tanggal), kategori");
             break;
         case 'day':
-            $sql = mysqli_query($connect,"SELECT k.*, sum(k.pemasukan) as totalPemasukan, sum(k.pengeluaran) as totalPengeluaran, sum(k.pemasukan)-sum(k.pengeluaran) as totalSaldo, u.id as idUser, u.name FROM laporan k inner join user u on u.id=k.id_user group by DATE_FORMAT(k.tanggal,'%Y-%m-%d')");
+            $sql = mysqli_query($connect,"SELECT k.*,k.tanggal as nilai,'Tanggal' as tipe, sum(k.pemasukan) as totalPemasukan, sum(k.pengeluaran) as totalPengeluaran, sum(k.pemasukan)-sum(k.pengeluaran) as totalSaldo, u.id as idUser, u.name FROM laporan k inner join user u on u.id=k.id_user group by DATE_FORMAT(k.tanggal,'%Y-%m-%d'), kategori");
             break;
         default:
-        $sql = mysqli_query($connect,"SELECT k.*, sum(k.pemasukan) as totalPemasukan, sum(k.pengeluaran) as totalPengeluaran, sum(k.pemasukan)-sum(k.pengeluaran) as totalSaldo, u.id as idUser, u.name FROM laporan k inner join user u on u.id=k.id_user group by month(k.tanggal)");
+        $sql = mysqli_query($connect,"SELECT k.*,month(k.tanggal) as nilai,'Bulan' as tipe, sum(k.pemasukan) as totalPemasukan, sum(k.pengeluaran) as totalPengeluaran, sum(k.pemasukan)-sum(k.pengeluaran) as totalSaldo, u.id as idUser, u.name FROM laporan k inner join user u on u.id=k.id_user group by month(k.tanggal), kategori");
             break;
     }
     $dataResult=array();
