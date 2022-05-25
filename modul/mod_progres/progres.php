@@ -3,7 +3,7 @@ $aksi="modul/mod_progres/aksi_progres.php";
 $aksi2="modul/mod_progres/cetak.php";
 switch($_GET['act']){
 default:
-$tampil = mysqli_query($connect,"SELECT k.*, u.id as idUser, u.name FROM progres k inner join user u on u.id=k.id_user");
+$tampil = mysqli_query($connect,"SELECT k.*, kk.jenis, u.id as idUser, u.name FROM progres k inner join user u on u.id=k.id_user inner join kegiatan kk on kk.id=k.id_kegiatan ");
 ?>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -29,8 +29,6 @@ $tampil = mysqli_query($connect,"SELECT k.*, u.id as idUser, u.name FROM progres
 						<th width="5%">No</th>
 						<th>Nama</th>
 						<th>Jenis Usaha</th>
-						<th>Alamat</th>
-						<th>No HP</th>
 						<th>Pendapatan</th>
 						<th>Laporan Progres</th>
 						<th>Action</th>
@@ -45,9 +43,7 @@ $tampil = mysqli_query($connect,"SELECT k.*, u.id as idUser, u.name FROM progres
 					<tr align="center">
 						<td><?php echo $no ?></td>
 						<td><?php echo $r['name'] ?></td>
-						<td><?php echo $r['jenis_usaha'] ?></td>
-						<td><?php echo $r['alamat'] ?></td>
-						<td><?php echo $r['no_hp'] ?></td>
+						<td><?php echo $r['jenis'] ?></td>
 						<td><?php echo "Rp. ".$rupiah ?></td>
 						<td><?php echo $r['laporan'] ?></td>
 						<td>
@@ -69,7 +65,7 @@ $tampil = mysqli_query($connect,"SELECT k.*, u.id as idUser, u.name FROM progres
 <?php			
 break;
 case "detailKegiatan":
-$detail=mysqli_query($connect,"SELECT * FROM progres WHERE id='$_GET[id]'");
+$detail = mysqli_query($connect,"SELECT k.*, kk.jenis, u.id as idUser, u.name FROM progres k inner join user u on u.id=k.id_user inner join kegiatan kk on kk.id=k.id_kegiatan where k.id=$_GET[id]");
 $r=mysqli_fetch_array($detail);
 $rupiah=number_format($r['pendapatan'],0,',','.');
 ?>
@@ -96,15 +92,7 @@ $rupiah=number_format($r['pendapatan'],0,',','.');
 				</tr>
 				<tr>
 					<th class="bg-light">Jenis Usaha</th>
-					<td><?=$r['jenis_usaha']?></td>
-				</tr>
-				<tr>
-					<th class="bg-light">Alamat</th>
-					<td><?=$r['alamat']?></td>
-				</tr>
-				<tr>
-					<th class="bg-light">No HP</th>
-					<td><?=$r['no_hp']?></td>
+					<td><?=$r['jenis']?></td>
 				</tr>
 				<tr>
 					<th class="bg-light">Pendapatan</th>

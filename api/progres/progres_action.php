@@ -14,12 +14,10 @@ $json = array(
 if($_POST['apps']=='buat'){
     $id_user = $_POST['id_user'];
     $jenis_usaha = $_POST['jenis_usaha'];
-    $alamat = $_POST['alamat'];
-    $no_hp = $_POST['no_hp'];
     $pendapatan = $_POST['pendapatan'];
     $laporan = $_POST['laporan'];
     //insert nppt
-    $sql = mysqli_query($connect,"insert into progres (id_user, jenis_usaha, alamat, no_hp, pendapatan, laporan) values ('$id_user','$jenis_usaha','$alamat','$no_hp','$pendapatan','$laporan')");
+    $sql = mysqli_query($connect,"insert into progres (id_user, jenis, pendapatan, laporan) values ('$id_user','$jenis_usaha','$pendapatan','$laporan')");
     if($sql){
         $json['status'] = "sukses";
         $json['pesan'] = "Data berhasil ditambah";
@@ -33,9 +31,7 @@ if($_POST['apps']=='buat'){
     //insert nppt
     $sql = mysqli_query($connect,"UPDATE progres SET 
     id_user  = '$_POST[id_user]',
-    jenis_usaha = '$_POST[jenis_usaha]',
-    alamat = '$_POST[alamat]',
-    no_hp = '$_POST[no_hp]',
+    jenis = '$_POST[jenis_usaha]',
     pendapatan = '$_POST[pendapatan]',
     laporan = '$_POST[laporan]'
     WHERE id = '$_POST[id]'");
